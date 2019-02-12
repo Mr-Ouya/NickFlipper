@@ -109,14 +109,30 @@ function populateModelDropDown(make, modelsFromFunction) {
           
           model = result.Results[i].Model_Name;
           models.push(model);
-        }
-        //Here push values of models array into 
         
-        //modelsFromFunction(models);
-        console.log(modelsFromFunction);
-        //Make a count with a ajax call to database then trim off the count when doing the search query
-  
-  
+         
+
+        }
+          //Here push values of models array into !$modelDropDown!
+          for (var i = 0; i < models.length; i++) {
+
+
+            //console.log(data);
+            var newSelect = $("<option></option").text(models[i]);
+        
+            newSelect.val(models[i]);
+        
+        
+            newSelect.addClass("newoptions");
+        
+            newSelect.data(models[i]);
+        //**Must replace this with a function that only pops up the new models */
+            //newSelect.onclick = popnewItems;
+            
+            
+            $modelDropdown.append(newSelect);
+            console.log("Info that's attempted to re-append the !$modelDropDown! " + newSelect)
+          }
       }
     })
   
@@ -291,6 +307,9 @@ var makeDropdownChanged = function() {
   if (stringValueOfMake == 'Make') {
     $modelDropdown.prop("disabled", true);
   } else {
+    //Trying to clear the !$modeldropdown and need to empty the !model array or it will repopulate on it's own
+    models = [];
+    $($modelDropdown.empty());
     $modelDropdown.prop("disabled", false);
     selectedMake = stringValueOfMake;
     populateModelDropDown(selectedMake);
