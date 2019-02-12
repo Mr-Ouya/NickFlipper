@@ -1,0 +1,189 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+
+<h1 class="titleS">Auto Flipper</h1>
+<div id="home">
+  <div class="container">
+    <div class="row">
+      <div class="sizing"></div>
+      <div class="container">
+        <div class="search">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="exampleSelect1" class="nameSearch">Make</label>
+                <select class="form-control" id="makeSelect1">
+                  <option selected>Make</option>
+
+
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="exampleSelect1" class="nameSearch">Model</label>
+                <select class="form-control" id="modelSelect1" disabled>
+                  <-- <option selected>Model</option> !-->
+                    {{#each vehicle}}
+                    <option id="btnmodel" data-id={{this.model}}>{{this.model}}</option>
+                    {{/each}}
+                </select>
+              </div>
+            </div>
+
+            
+
+            <div class="col">
+              <div class="form-group">
+                <label for="exampleSelect1" class="nameSearch">Year(Min)</label>
+                <select class="form-control" id="yearminSelect1" disabled>
+                  <option selected>Year</option>
+                  {{#each vehicle}}
+                  <option id="btnyear" data-id={{this.year}}>{{this.year}}</option>
+                  {{/each}}
+                </select>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="form-group">
+                <label for="exampleSelect1" class="nameSearch">Year(Max)(</label>
+                <select class="form-control" id="yearmaxSelect1" disabled>
+                  <option selected>Year</option>
+                  {{#each vehicle}}
+                  <option id="btnyear" data-id={{this.year}}>{{this.year}}</option>
+                  {{/each}}
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="exampleSelect1" class="nameSearch">Price(Min)</label>
+                <select class="form-control" id="minSelect1" disabled>
+                  <option selected>Price</option>
+
+                </select>
+              </div>
+
+            </div>
+
+            <div class="col">
+              <div class="form-group">
+                <label for="exampleSelect1" class="nameSearch">Price(Max)</label>
+                <select class="form-control" id="maxSelect1" disabled>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="row">
+
+
+            <input type="submit" class="btn btn-primary btn-lg" id="submitSearch">
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+{{!-- temporary stuff to get all results from database if btn id=submitSearch is pressed --}}
+      Character Database
+          </div>
+          <div class="card-body" id="well-section">
+
+            <!-- Content will go in here -->
+
+          </div>
+{{!-- End of star wars code --}}
+
+
+<div class="comtainer"></div>
+<form action="POST">
+  <div class="row">
+    <label>What type of Vehicle</label>
+    <input type="text" id="typeV">
+  </div>
+  <div class="row">
+    <label>What Make</label>
+    <input type="text" id="typeMake">
+  </div>
+  <div class="row">
+    <label> What model</label>
+    <input type="text" id="typeModel">
+  </div>
+  <div class="row">
+    <label>Price</label>
+    <input type="text" id="typeYear">
+  </div>
+  <div class="row">
+    <label>Year</label>
+    <input type="text" id="typeYear">
+  </div>
+  <div class="row">
+    <label>Description of Vehicle</label>
+    <textarea id="typeDes"></textarea>
+  </div>
+  <div class="row">
+    <label>Add vehicle to your list</label>
+    <input type="submit" id="submit">
+  </div>
+</form>
+
+<div class="container">
+
+  {{#each vehicle}}
+  <div class="row itemH">
+    <div class="col">
+      <h5 class="mmpStyle">{{this.make}} : {{this.model}} {{this.price}}</h5>
+      <p class="decript">{{this.decription}}</p>
+    </div>
+    <div class="col"></div>
+  </div>
+  {{/each}}
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      <span id="dropName">Model</span>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      {{#each vehicle}}
+      <button class="dropdown-item" type="button" data-id="{{this.make}}" id="btnMake">{{this.make}}</button>
+      {{/each}}
+    </div>
+  </div>
+
+
+
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/js/index.js"></script>
