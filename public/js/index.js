@@ -9,8 +9,14 @@ var $submitBtn = $("#submit");
 var $exampleList = $("#example-list");
 var $makeDropdown = $("#makeSelect1");
 var $modelDropdown = $("#modelSelect1");
+//Empty arrays that the dropdowns will use 
 var makes = [];
 var models = [];
+
+//Have specific values for make and model for the API to reference in order to perform queries
+var selectedMake = "";
+var selectedModel = "";
+
 
 popularVehicle = ["BMW", "Chevrolet", "Dodge", "Ford", "GMC", "Hyundai", "Jeep", "Toyoto", "Honda", "Nissan", "Ram", "KIA", "Subaru", "Mazada", "Mercedes_Benz", "Volksvagen"];
 years = ["2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019"]
@@ -62,8 +68,59 @@ function populateMakeDropdown(select, data) {
   }
 
 }
+
+//used to be popItems function 
+function populateMakeDropdown(select, data) {
+  // dropdownEnable()
+  var firstdropdown = select;
+  //console.log(data);
+  for (var i = 0; i < data.length; i++) {
+    var newSelect = $("<option></option>").text(data[i]);
+
+    newSelect.val(data[i]);
+
+    newSelect.addClass("newoptions");
+
+    newSelect.data(data[i]);
+//popnewItems Not defined ***
+    //newSelect.onclick = popItems;
+    firstdropdown.append(newSelect);
+    //console.log(newSelect);
+  }
+
+}
+
+
 //populate make dropdown on launch
 populateMakeDropdown($makeDropdown, popularVehicle);
+
+function populateModelDropDown(make, modelsFromFunction) {
+  
+    $.ajax({
+      url: "https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformake/" + make + "?format=json",
+      success: function (result) {
+        console.log('result from API', result)
+  
+        for (var i = 0; i < result.Results.length; i++) {
+  
+          // console.log(result.Results[i].Model_Name);
+  
+          
+          
+          model = result.Results[i].Model_Name;
+          models.push(model);
+        }
+        //Here push values of models array into 
+        
+        //modelsFromFunction(models);
+        console.log(modelsFromFunction);
+        //Make a count with a ajax call to database then trim off the count when doing the search query
+  
+  
+      }
+    })
+  
+  }
 
 /*
 function addSpecificMakes(select, data) {
@@ -226,15 +283,18 @@ var handleDeleteBtnClick = function() {
   });
 };
 
-var makeDropdownChange = function() {
+var makeDropdownChanged = function() {
 
   //console.log($makeDropdown.val())
   var stringValueOfMake = $makeDropdown.val()
-  console.log(stringValueOfMake)
+  ////console.log(stringValueOfMake)
   if (stringValueOfMake == 'Make') {
     $modelDropdown.prop("disabled", true);
   } else {
     $modelDropdown.prop("disabled", false);
+    selectedMake = stringValueOfMake;
+    populateModelDropDown(selectedMake);
+
   }
   /*if ($makeDropdown.val() == 'make') {
     console.log("Success")
@@ -262,6 +322,6 @@ var makeDropdownChange = function() {
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
 $exampleList.on("click", ".delete", handleDeleteBtnClick);
-$makeDropdown.on("change", makeDropdownChange);
+$makeDropdown.on("change", makeDropdownChanged);
 //console.log($(this).val())
 })
