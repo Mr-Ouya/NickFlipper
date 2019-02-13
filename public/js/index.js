@@ -9,6 +9,7 @@ $(document).ready(function () {
   var $exampleList = $("#example-list");
   var $makeDropdown = $("#makeSelect1");
   var $modelDropdown = $("#modelSelect1");
+  var $yearDropdown = $("#yearmaxSelect1");
   
   //Empty arrays that the dropdowns will use 
   var makes = [];
@@ -188,7 +189,7 @@ $(document).ready(function () {
       models = [];
       $($modelDropdown.empty());
 
-      
+
       var modelText = $("<option></option").text("Models");
       $modelDropdown.append(modelText);
       //Populate with the value of Model after empty so after the select of the model the other choices appear
@@ -197,14 +198,22 @@ $(document).ready(function () {
       populateModelDropDown(selectedMake);
   
     }
-    
-  
   }
+  var modelDropdownChanged = function() {
+    //Need to use .val to get value of $modelDropDown or else it doesn't work for some apparent RAISIN
+    var stringValueOfModel = $modelDropdown.val()
+    if (stringValueOfModel == 'Model') {
+      $yearDropdown.prop("disabled", true);
+  } else {
+    $yearDropdown.prop("disabled", false);
+  }
+}
   
   
   // Add event listeners to the submit and delete buttons
   $submitBtn.on("click", handleFormSubmit);
   $exampleList.on("click", ".delete", handleDeleteBtnClick);
   $makeDropdown.on("change", makeDropdownChanged);
+  $modelDropdown.on("change", modelDropdownChanged);
   //console.log($(this).val())
   })
