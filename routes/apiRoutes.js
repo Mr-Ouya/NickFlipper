@@ -1,6 +1,6 @@
 var db = require("./../models");
 var Vehicle = require("./../models/vehicle");
-
+var Op = require("sequelize").Op;
 
 module.exports = function(app) {
   // Get all examples

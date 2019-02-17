@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
-
-
+  
+  
   // Get references to page elements
   var $exampleText = $("#example-text");
   var $exampleDescription = $("#example-description");
@@ -10,15 +10,30 @@ $(document).ready(function () {
   var $makeDropdown = $("#makeSelect1");
   var $modelDropdown = $("#modelSelect1");
   var $yearDropdown = $("#yearmaxSelect1");
+  var $priceDropdown = $("#maxSelect1");
   
   //Empty arrays that the dropdowns will use 
   var makes = [];
   var models = [];
-  
+
+  var priceArray =[5000, 6000];
+  var yearArray =[1996,1997];
   //Have specific values for make and model for the API to reference in order to perform queries
   var selectedMake = "";
   var selectedModel = "";
   
+  
+/*
+  //Populate year and price values 
+  var initializeYearandPrice = function() {
+    var yearOptions = $("<option></option").text(yearArray);
+      $yearDropdown.append(yearOptions);
+      var priceOptions = $("<option></option").text(priceArray);
+      $priceDropdown.append(priceOptions);
+  }
+  initializeYearandPrice();
+ */
+
   
   popularVehicle = ["BMW", "Chevrolet", "Dodge", "Ford", "GMC", "Hyundai", "Jeep", "Toyoto", "Honda", "Nissan", "Ram", "KIA", "Subaru", "Mazada", "Mercedes_Benz", "Volksvagen"];
   years = ["2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019"]
@@ -184,6 +199,8 @@ $(document).ready(function () {
     ////console.log(stringValueOfMake)
     if (stringValueOfMake == 'Make') {
       $modelDropdown.prop("disabled", true);
+      $yearDropdown.prop("disabled", true);
+      $priceDropdown.prop("disabled", true);
     } else {
       //Trying to clear the !$modeldropdown and need to empty the !model array or it will repopulate on it's own
       models = [];
@@ -204,8 +221,10 @@ $(document).ready(function () {
     var stringValueOfModel = $modelDropdown.val()
     if (stringValueOfModel == 'Model') {
       $yearDropdown.prop("disabled", true);
+      $priceDropdown.prop("disabled", true);
   } else {
     $yearDropdown.prop("disabled", false);
+    $priceDropdown.prop("disabled", false);
   }
 }
   
